@@ -4,5 +4,10 @@ runtime: python
 api_version: 1
 
 handlers:
-- url: .*
+- url: /a/.*
   script: main.py
+- url: /
+  static_dir: client
+
+derived_file_type:
+- python_precompiled
