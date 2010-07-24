@@ -1,26 +1,43 @@
 """This is the player's controller."""
 
 from google.appengine.api import users
+from google.appengine.ext import db
 from google.appengine.ext import webapp
-from model import Player as PlayerModel
+from model import player as player_model
 from controller import util
 
 class PlayerHandler(webapp.RequestHandler):
 
   def get(self):
-    util.Output(self._AsJsonDict(self._GetPlayer()))
+    util.Output(self._AsJsonDict(self._GetPlayer()), self.response)
   
   def put(self):
     player = self._GetPlayer()
     
-    # TODO: Write updates
+    payload = simplejson.loads(self.request.body)
+    if "lat" in payload and "lon" in payload:
+      player.location = db.GeoPt(lat=payload["lat"], lon=payload["lon"])
+    if "max_health" in payload:
+      player.max_health = payload["max_health"]
+    if "current_health" in payload:
+      player.current_health = payload["current_health"]
+    if "experience" in payload:
+      player.experience = payload["experience"]
+    if "level" in payload:
+      player.level = payload["level"]
+    if "strength" in payload:
+      player.strength = payload["strength"]
+    if "dexterity" in payload:
+      player.dexterity = payload["dexterity"]
+
+    player.put()
     
     # Output the current player state
     self.get()
 
   def _GetPlayer(self):
     user = users.get_current_user()
-    return PlayerModel.get_or_insert(user.user_id(), user=user)
+    return player_model.Player.get_or_insert(user.user_id(), user=user)
     
   def _AsJsonDict(self, player):
     d = {"email": player.user.email()}

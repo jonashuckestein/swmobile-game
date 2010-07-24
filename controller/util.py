@@ -1,6 +1,6 @@
 from django.utils import simplejson as json
 
-def Output(self, json_dictionary):
+def Output(json_dictionary, response):
   """Write the given dictionary to output."""
-  self.response.headers["Content-Type"] = "application/json; charset=utf-8"
-  self.response.out.write(json.dumps(dictionary))
+  response.headers["Content-Type"] = "application/json; charset=utf-8"
+  response.out.write(json.dumps(json_dictionary))
