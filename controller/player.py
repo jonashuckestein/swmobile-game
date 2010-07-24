@@ -1,10 +1,12 @@
 """This is the player's controller."""
 
+from controller import util
+from django.utils import simplejson 
 from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from model import player as player_model
-from controller import util
+
 
 class PlayerHandler(webapp.RequestHandler):
 
