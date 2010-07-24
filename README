@@ -1,0 +1,5 @@
+Requires WebTest and Nose-GAE to be installed:
+  http://pythonpaste.org/webtest/
+  http://code.google.com/p/nose-gae/
+  
+To run tests: nosetests -v --with-gae
