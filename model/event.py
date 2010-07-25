@@ -3,4 +3,13 @@
 from google.appengine.ext import db
 
 class Event(db.Model):
-  pass
+  """The parent of an event is always a player."""
+  
+  location = db.GeoPtProperty(required=True)
+
+  title = db.TextProperty()
+  type = db.StringProperty()
+  description = db.TextProperty()
+  
+  # milliseconds since the epoch.
+  time = db.IntegerProperty()
