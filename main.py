@@ -1,15 +1,20 @@
-from controller import event
+from controller import leaderboard
 from controller import player
-from controller import world
+from controller.api import event
+from controller.api import player as player_api
+from controller.api import world
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 
 
 def Application():
-  return webapp.WSGIApplication([('/a/event', event.EventHandler),
-                                 ('/a/player', player.PlayerHandler),
-                                 ('/a/world', world.WorldHandler)],
-                                 debug=True)
+  return webapp.WSGIApplication(
+      [('/a/event', event.EventHandler),
+       ('/a/player', player_api.PlayerHandler),
+       ('/a/world', world.WorldHandler),
+       ('/s/leaderboard', leaderboard.LeaderboardHandler),
+       ('/s/player', player.PlayerHandler)],
+      debug=True)
 
 
 def main():

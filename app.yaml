@@ -8,10 +8,17 @@ handlers:
   script: main.py
   login: required
   secure: never
+
+- url: /s/.*
+  script: main.py
+  login: required
+  secure: never
+
 - url: /
   static_files: client/index.html
   upload: client/index.html
   login: required
+
 - url: /
   static_dir: client
   login: required

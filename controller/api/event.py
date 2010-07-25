@@ -2,7 +2,7 @@
 
 import time
 
-from controller import util
+from controller.api import util
 from django.utils import simplejson
 from google.appengine.api import users
 from google.appengine.ext import db

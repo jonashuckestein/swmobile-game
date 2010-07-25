@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block body %}
+<body>
+  Player!<br />
+  Email: {{ player.user.email }}<br />
+  Health: {{ player.current_health }} / {{ player.max_health }}<br />
+  Experience: {{ player.experience }}<br />
+  Level: {{ player.level }}<br />
+  Strength: {{ player.strength }}<br />
+  Defense: {{ player.defense }}<br />
+  
+  Total Distance Traveled (meters): {{ player.total_distance_traveled_meters }}<br/>
+  
+</body>
+{% endblock %}
