@@ -121,7 +121,9 @@ class WorldHandler(webapp.RequestHandler):
     players = player_model.Player.all().fetch(1000)
     p_list = []
     for player in players:
-      p_d = {"email": player.user.email(), "nickname": player.user.nickname()}
+      p_d = {"email": player.user.email(), 
+             "nickname": player.user.nickname(),
+             "id": int(player.user.user_id())}
       if player.location is not None:
         p_d["lat"] = player.location.lat
         p_d["lon"] = player.location.lon

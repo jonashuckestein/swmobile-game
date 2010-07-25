@@ -42,7 +42,7 @@ class PlayerHandler(webapp.RequestHandler):
     return player_model.Player.get_or_insert(user.user_id(), user=user)
     
   def _AsJsonDict(self, player):
-    d = {"email": player.user.email()}
+    d = {"email": player.user.email(), "id": int(player.user.user_id())}
     if player.location is not None:
       d["lat"] = player.location.lat
       d["lon"] = player.location.lon
