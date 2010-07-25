@@ -14,4 +14,4 @@ class Player(db.Model):
   experience = db.IntegerProperty()
   level = db.IntegerProperty()
   strength = db.IntegerProperty()
-  dexterity = db.IntegerProperty()
+  defense = db.IntegerProperty()

@@ -29,8 +29,8 @@ class PlayerHandler(webapp.RequestHandler):
       player.level = payload["level"]
     if "strength" in payload:
       player.strength = payload["strength"]
-    if "dexterity" in payload:
-      player.dexterity = payload["dexterity"]
+    if "defense" in payload:
+      player.defense = payload["defense"]
 
     player.put()
     
@@ -56,5 +56,5 @@ class PlayerHandler(webapp.RequestHandler):
     if player.strength is not None:
       d["strength"] = player.strength
     if player.dexterity is not None:
-      d["dexterity"] = player.dexterity
+      d["defense"] = player.defense
     return d
