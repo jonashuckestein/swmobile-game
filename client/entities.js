@@ -25,15 +25,15 @@ var Entity = Class.extend({
   getFightHTML: function() {
     
     return '<div class="fightStats"><div class="image"><img src="'+this.picture+'"/></div><table>'+
-      '<tr><td class="label">Health</td><td>'+this.data.current_health+'/'+this.data.max_health+'</td></tr>' +
+    '<tr><td colspan="2"><b>'+this.getName()+'</b></td></tr>' +
+      '<tr><td class="label">Health&nbsp;</td><td>'+this.data.current_health+'/'+this.data.max_health+'</td></tr>' +
           '</table></div>';
     
   },
   
   markerImage : function() {
     return new google.maps.MarkerImage(
-               "res/marker_"+this.data.type+".png",
-               new google.maps.Size(16, 16));
+               "res/marker_"+this.data.type+".png");
   },
   
   setPosition: function(lat, lon) {
@@ -75,8 +75,10 @@ var You = Entity.extend({
   init : function(data, game, callback) {
     
     this._super(data, game);
-    
-    this.picture = "res/avatar.gif";
+      
+      this.data.strength = 7;
+      
+    this.picture = "/avatars/1.png";
     this.title = this.data.email;
     this.marker.setTitle(this.title);
     this.circle = new google.maps.Circle({
@@ -93,6 +95,9 @@ var You = Entity.extend({
     
     // console.log("initialized YOU object", this)
     this.save(callback);
+  },
+  getName : function() {
+    return "You";
   },
   
   save : function(callback) {
@@ -237,26 +242,21 @@ var Suit = Enemy.extend({
   init : function(data, game) {
     data.type = 'suit';
     this._super(data, game);
+    this.picture = "res/suit_picture5.jpg"
     this.experience = 4;
-    var names = ["Josh the Snob", "Tina the Accountant", "Deloitte-man"];
+    var names = ["Steve the Snob"];
     this.name = names[Math.floor(Math.random()*names.length)];
   },
   
   dropItem : function() {
-    
-    if(Math.random() > 0.5) {
-      return "you found no item"
-    } else if(Math.random() > 0.5) {
-      return "you found an item"
-    } else if(Math.random() > 0.5) {
-      return "you found a super rare item"
-    } else {
-      return "you found a potion of level up!"
-    }
-    
+      return '<div id="item"><img src="res/Shirt.jpg"/>You steal the suit\'s button up shirt and tiedeye it. Good karma! You gain 3 strength points!</div>'
   },
   
   getHitText : function(damage) {
+    
+    this.picture = "res/suit_picture"+(Math.floor((this.data.current_health/this.data.max_health)*4)+1)+".jpg"
+    
+    
     var texts = [
       "You make fun of the corporate square and his lack of hipness. He loses <b>"+damage+" points</b> of power.",
       "You get the corporate square to share a joint with you. He gets <b>"+damage+" points</b> less uptight.",

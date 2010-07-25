@@ -176,18 +176,26 @@ Ext.setup({
           cls: 'character',
           scroll: 'vertical',
           tpl: [
-              '<div class="profile">',
-                    '<div class="picture"><img src="{picture}"/></div>',
-                    '<div class="attrs">',
-                      '<table>',
-                      '<tr><td class="label">Name</td><td class="value">{title}</td></tr>',
-                      '<tr><td class="label">Level</td><td class="value">{data.level} (Exp: {data.experience})</td></tr>',
-                      '<tr><td class="label">Health</td><td class="value">{data.current_health}/{data.max_health}</td></tr>',
-                      '<tr><td class="label">Strength</td><td class="value">{data.strength}</td></tr>',
-                      '<tr><td class="label">Defense</td><td class="value">{data.defense}</td></tr>',
-                      '</table>',
-                    '</div>',
-              '</div>'
+                                                                  
+          '<div>                                                    ',
+          '  <div style="width: 64px; float: left">                 ',
+          '    <img src="/avatars/{data.level}.png" width=64 height=64 />      ',
+          '  </div>                                                 ',
+          '  <div style="float: right; margin: 0 1em 1em 1em;">     ',
+          '    <strong>{data.nickname}</strong><br />              ',
+          '    Level: {data.level}<br />                                       ',
+          '    Experience: {data.experience}                                        ',
+          '  </div>                                                 ',
+          '</div>                                                   ',
+          '<div style="clear: both; padding: 1em; border-top: 1px black solid;">',
+          '  Health: {data.current_health} / {data.max_health}<br />                                               ',
+          '  Strength: {data.strength}<br />                                                  ',
+          '  Defense: {data.defense}<br />                                                   ',
+          '  Reach: {data.reach} m<br />             ',
+          '  Distance traveled: {data.total_distance_traveled_meters} m<br/>                                          ',
+          '</div>',
+          '<div style="padding: 1em"><a href="/s/leaderboard">End current quest and view Leaderbord</a>',
+          '</div>'
           ]       
       });
       var mapPanel = new Ext.Map({

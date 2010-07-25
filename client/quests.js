@@ -165,21 +165,29 @@ Quest = Class.extend({
     
       this.fight.youPanel = new Ext.Panel({
         html: this.game.you.getFightHTML(),
-        id: "youPanel"
+        id: "youPanel",
+        flex: 1
       });
       
       this.fight.enemyPanel = new Ext.Panel({
         html: entity.getFightHTML(),
-        id: "enemyPanel"
+        id: "enemyPanel",
+        flex: 1
       });
       
       this.fight.logPanel = new Ext.Panel({
         id: "fightLog",
-        style: "background: #fff",
-        html: '&nbsp;',
+        items: {
+          html: '&nbsp;',
+          scroll: "vertical"
+        },
         height: "30%",
-        styleHtmlContent: true,
-        scroll: 'horizontal'
+        dockedItems: [{
+            dock: 'top',
+            xtype: 'toolbar',
+            title: 'Event Log',
+            ui: 'metal'
+        }],
       });
       
       
@@ -187,28 +195,37 @@ Quest = Class.extend({
       this.fight.panel = new Ext.Panel({
         fullscreen: true,
         modal: true,
-        style: "background: #f00",
+        style: "background: #fff",
         layout: {
           type: 'vbox',
-          align: 'stretch'
+          align: 'top',
+          pack: 'center'
         },
         items: [
           {
-            layout: 'hbox',
+            layout: {
+              type: 'hbox',
+              align: 'stretch',
+              pack: 'center'
+            },
             flex: 1,
             items: [this.fight.enemyPanel, this.fight.youPanel]
           },
           this.fight.logPanel,
           {
             layout: {
-              type: 'hbox'
+              type: 'hbox',
+              pack: 'center',
+              align: 'stretch'
             },
             items: [{
+              flex: 1,
               xtype: 'button',
               text: 'Fight!',
               handler: function(){return self.fightRound(entity)}
             },
             {
+              flex: 1,
               xtype: 'button',
               text: 'Run away!',
               handler: function(){self.runAway()}
