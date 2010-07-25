@@ -107,7 +107,7 @@ var You = Entity.extend({
         // already even before the server confirms the update
         self.game.characterPanel.update(self);
 
-        callback();
+        (callback !== undefined) && callback();
       },
       failure : function(response, opts) {
         console.error("FAILED to save YOU", response, opts);

@@ -135,6 +135,8 @@ Ext.setup({
       
       // have a timer updating the gamestate as fast as possible with 1 sec delay after response comes in
       var questPanel = new Ext.Panel({
+        
+        
         title: 'Quest',
         iconCls: 'info',
         cls: 'quest',
@@ -221,7 +223,7 @@ Ext.setup({
 // >       var newQuestComponent = new Ext.Compenent({
 // >         
 // >       });
-// >       
+// >
 
       var characterPanel = new Ext.Component({
           title: 'Character',

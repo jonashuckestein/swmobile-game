@@ -6,12 +6,36 @@ Quest = Class.extend({
         position: new google.maps.LatLng(this.target.lat, this.target.lon),
         map: this.game.mapPanel.map,
         icon: new google.maps.MarkerImage(
-                   "res/target.png",
-                   new google.maps.Size(32, 16))
+                   "res/target.png")
       });
       
+  },
+  runAway: function(e) {
+    this.game.you.data.experience -= 1;
+    if(this.game.you.data.experience < 0) this.game.you.data.experience = 0;
+    this.game.you.save();
+    
+    alert("How disgraceful! You lose 1 experience point!");
+    this.fight.panel.destroy();
+    this.game.mapPanel.recenter();
+  },
+  
+  winFight: function(e) {
+    alert(e.defeatText())
+  },
+  
+  loseFight: function(e) {
+    alert(e.winText());
+  },
+  
+  log : function(msg) {
+    this.fight.logPanel.body.insertFirst({
+      tag: 'p',
+      html: msg,
+      cls: 'logMessage'
+    });
   }
-
+  
 });
 
 HippieHunt = Quest.extend({
@@ -34,27 +58,6 @@ HippieHunt = Quest.extend({
 
     
 
-  },
-
-  winFight: function(e) {
-    alert(e.defeatText())
-  },
-  
-  loseFight: function(e) {
-    alert(e.winText());
-  },
-runAway: function(e) {
-
-
-
-
-},
-  log : function(msg) {
-    this.fight.logPanel.body.insertFirst({
-      tag: 'p',
-      html: msg,
-      cls: 'logMessage'
-    });
   },
 
     fightRound: function(e) {
@@ -149,7 +152,7 @@ runAway: function(e) {
               {
                 xtype: 'button',
                 text: 'Run away!',
-                handler: self.runAway
+                handler: function(){self.runAway()}
               }
               ]
             },
