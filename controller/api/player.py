@@ -47,7 +47,13 @@ class PlayerHandler(webapp.RequestHandler):
 
   def _GetPlayer(self):
     user = users.get_current_user()
-    return player_model.Player.get_or_insert(user.user_id(), user=user)
+    player = player_model.Player.get_or_insert(user.user_id(), user=user)
+    
+    # Update defaults.
+    if player.reach is None:
+      player.reach = 50.0
+
+    return player
     
   def _AsJsonDict(self, player):
     d = {"email": player.user.email(),
