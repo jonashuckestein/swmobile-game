@@ -78,7 +78,7 @@ var You = Entity.extend({
       
       this.data.strength = 7;
       
-    this.picture = "/avatars/1.png";
+    this.picture = "/avatars/1.jpg";
     this.title = this.data.email;
     this.marker.setTitle(this.title);
     this.circle = new google.maps.Circle({
