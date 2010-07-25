@@ -75,8 +75,7 @@ Ext.setup({
       }
       var startQuest = function(target) {
 
-        game.quest = new HippieHunt(target, game);
-
+        game.quest = new HippieUprising(target, game);
 
 //        tabPanel.layout.setActiveItem(1);
 //        questPanel.layout.setActiveItem(1);
@@ -116,7 +115,7 @@ Ext.setup({
           
             {
               xtype: 'button',
-              text: 'Start quest',
+              text: 'Start Quest',
               handler: function(){
                 var address = questPanelTextField.getValue();
                 if(!address) {
@@ -138,18 +137,10 @@ Ext.setup({
             }
           ]
         },
-        
         {
           xtype: 'component',
-          tpl: [
-          '<div class="profile">',
-                '<div class="attrs">',
-                  '<table>',
-                  '<tr><td class="label">goal</td><td class="value">{title}</td></tr>',
-                  '</table>',
-                '</div>',
-          '</div>'
-          ]
+          html: 'EMPTY'
+          
         }
         
         
@@ -202,6 +193,9 @@ Ext.setup({
           ]       
       });
       var mapPanel = new Ext.Map({
+          recenter: function() {
+            mapPanel.map.panTo(new google.maps.LatLng(game.you.data.lat, game.you.data.lon));
+          },
           title: 'World',
           cls: 'world',
           iconCls: 'download',
@@ -234,12 +228,13 @@ Ext.setup({
         var game = {
           lastTimestamp: 0,
           you: null,
-          entities: {},
+          quest: null,
           entities: [],
           initialized : false,
           characterPanel: characterPanel,
           mapPanel: mapPanel,
-          questPanel: questPanel
+          questPanel: questPanel,
+          tabPanel: tabPanel
         };
         
         
