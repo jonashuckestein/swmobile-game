@@ -14,11 +14,15 @@ class LeaderboardHandler(webapp.RequestHandler):
     player_query = player_model.Player.all()
     player_query.order("-total_distance_traveled_meters")
     
+    distance_traveled_miles = 0
+    if player.total_distance_traveled_meters is not None:
+      distance_traveled_miles = player.total_distance_traveled_meters / 1609.344
+    
     players = []
     for player in player_query.fetch(10):
       players.append({"user": { "user_id": player.user.user_id(),
                                 "nickname": player.user.nickname() },
-                      "total_distance_traveled_miles": "%.2f" % (player.total_distance_traveled_meters / 1609.344)})
+                      "total_distance_traveled_miles": "%.2f" % (distance_traveled_miles)})
     
     self._OutputTemplate({"players": players}, "leaderboard.html")
   
