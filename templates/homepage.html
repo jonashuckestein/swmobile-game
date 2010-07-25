@@ -1,0 +1,20 @@
+{% extends "game_screen.html" %}
+{% block contents %}
+  <!--
+  Top Players:
+  <ul>
+    {% for player in players %}
+      <li><a href="/s/player?id={{ player.user.user_id }}">{{ player.user.nickname }}</a></li>
+    {% endfor %}
+  </ul>
+  -->
+
+  <div style="text-align: center;">
+    <div>  
+      <img src="blah" width=200 height=300 style="margin-bottom: 1em;" />
+      <form action="/game" onsubmit="javascript:document.location='/game'; return false;">
+        <input type="submit" value="Play Now" />
+      </form>
+    </div>
+  </div>
+{% endblock %}

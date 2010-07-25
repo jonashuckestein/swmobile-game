@@ -5,8 +5,6 @@ Ext.setup({
     phoneStartupScreen: 'TODO.png',
     glossOnIcon: true,
     onReady: function() {
-
-
       var worldRefreshLoop = function() {
         // TODO show loading icon somewhere
         Ext.Ajax.request({
@@ -266,7 +264,7 @@ Ext.setup({
             if(!game.initialized) {
               initializeGame(loc);
             } else {
-             game.you.setPosition(loc.latitude+0.0002, loc.longitude+0.0002);
+             game.you.setPosition(loc.latitude, loc.longitude);
              console.log(game.you.data)
             }
             

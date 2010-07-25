@@ -3,6 +3,8 @@ version: 1
 runtime: python
 api_version: 1
 
+default_expiration: "5s"
+
 handlers:
 - url: /a/.*
   script: main.py
@@ -11,10 +13,12 @@ handlers:
 
 - url: /s/.*
   script: main.py
-  login: required
   secure: never
 
 - url: /
+  script: main.py
+
+- url: /game
   static_files: client/index.html
   upload: client/index.html
   login: required

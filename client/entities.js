@@ -1,4 +1,3 @@
-
 var Entity = Class.extend({
   
   init: function(data, game) {
@@ -98,20 +97,24 @@ var You = Entity.extend({
   
   save : function(callback) {
     var self = this;
+    console.log("Saving self to server.");
     // TODO show loading icon somewhere
     Ext.Ajax.request({
       url: '/a/player',
       method: 'put',
       jsonData: this.data,
       success: function(response, opts) {
+    	console.log("Successfully saved player data to server.");
         self.data = Ext.util.JSON.decode(response.responseText);
-        self.setPosition();
+        console.log("Player data ", self.data);
         
         // TODO: maybe it is nicer to update the character panel
         // already even before the server confirms the update
         self.game.characterPanel.update(self);
 
-        (callback !== undefined) && callback();
+        if (callback !== undefined) {
+        	callback();
+        }
       },
       failure : function(response, opts) {
         console.error("FAILED to save YOU", response, opts);
@@ -121,10 +124,21 @@ var You = Entity.extend({
   },
   
   setPosition : function(lat, lon) {
-    
+    if(this.data.lat !== undefined &&
+    		this.data.lon !== undefined &&
+    		lat !== undefined &&
+    		lon !== undefined) {
+    	lat += Math.random() / 1000;
+    	
+    	var oldPosition = new google.maps.LatLng(this.data.lat, this.data.lon);
+    	var newPosition = new google.maps.LatLng(lat, lon);
+    	differenceMeters = distance(oldPosition, newPosition);
+    	this.data.total_distance_traveled_meters += differenceMeters;
+    }
+	  
     this._super(lat, lon);
     this.circle.setCenter(new google.maps.LatLng(this.data.lat,this.data.lon));
-    
+    this.save();
   },
   
   markerImage : function() {

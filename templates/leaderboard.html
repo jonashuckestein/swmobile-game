@@ -1,10 +1,15 @@
-{% extends "base.html" %}
-{% block body %}
-<body>
-  <ul>
+{% extends "game_screen.html" %}
+{% block contents %}
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Miles Traveled</th>
+    </tr>
     {% for player in players %}
-      <li><a href="/s/player?id={{ player.user.user_id }}">{{ player.user.nickname }}</a>: {{ player.total_distance_traveled_meters }} meters traveled!</li>
+      <tr>
+        <td><a href="/s/player?id={{ player.user.user_id }}">{{ player.user.nickname }}</a></td>
+        <td>{{ player.total_distance_traveled_miles }} mi.</td>
+      </tr>
     {% endfor %}
-  </ul>
-</body>
+  </table>
 {% endblock %}

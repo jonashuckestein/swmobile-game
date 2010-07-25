@@ -1,15 +1,21 @@
-{% extends "base.html" %}
-{% block body %}
-<body>
-  Player!<br />
-  Email: {{ player.user.email }}<br />
-  Health: {{ player.current_health }} / {{ player.max_health }}<br />
-  Experience: {{ player.experience }}<br />
-  Level: {{ player.level }}<br />
-  Strength: {{ player.strength }}<br />
-  Defense: {{ player.defense }}<br />
-  
-  Total Distance Traveled (meters): {{ player.total_distance_traveled_meters }}<br/>
-  
-</body>
+{% extends "game_screen.html" %}
+{% block contents %}
+  <div>
+    <div style="width: 64px; float: left">
+      <img src="/avatars/{{ player.level }}.png" width=64 height=64 />
+    </div>
+    <div style="float: right; margin: 0 1em 1em 1em;">
+      <strong>{{ player.user.nickname }}</strong><br />
+      Level: {{ player.level }}<br />
+      Experience: {{ player.experience }}
+    </div>
+  </div>
+
+  <div style="clear: both; padding: 1em; border-top: 1px black solid;">
+    Health: {{ player.current_health }} / {{ player.max_health }}<br />
+    Strength: {{ player.strength }}<br />
+    Defense: {{ player.defense }}<br />
+    Reach: {{ player.reach_feet }}'<br />
+    Miles traveled: {{ player.total_distance_traveled_miles }}<br/>
+  </div>
 {% endblock %}

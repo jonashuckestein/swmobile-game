@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body %}
+<body>
+  <div id="header">
+    <a href="/game">Game</a>
+    <a href="/s/howto">How to Play</a>
+    <a href="/s/leaderboard">Leaders</a>
+  </div>
+
+  {% block contents %}{% endblock %}
+
+</body>
+{% endblock %}
