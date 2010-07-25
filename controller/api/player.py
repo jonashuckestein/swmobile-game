@@ -38,7 +38,7 @@ class PlayerHandler(webapp.RequestHandler):
       player.total_distance_traveled_meters = \
           payload["total_distance_traveled_meters"]
     if "reach" in payload:
-      player.reach = payload["reach"]
+      player.reach = float(payload["reach"])
 
     player.put()
     
