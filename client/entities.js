@@ -61,6 +61,10 @@ var Entity = Class.extend({
   
   getPicture: function() {
     return "res/unknown_picture.png";
+  },
+  
+  dropItem : function() {
+    return "You didn't find any items."
   }
   
 });
@@ -73,7 +77,7 @@ var You = Entity.extend({
     
     this._super(data, game);
     
-    this.picture = "/a/player/picture";
+    this.picture = "res/avatar.gif";
     this.title = this.data.email;
     this.marker.setTitle(this.title);
     this.circle = new google.maps.Circle({
@@ -191,9 +195,86 @@ var Hippie = Enemy.extend({
 
     this.experience = 4;
     var names = ["Smelly", "Holly", "Abraham"];
+    this.name = names[Math.floor(Math.random()*names.length)] + " the Hippie";
+  },
+  
+  dropItem : function() {
+    
+    if(Math.random() > 0.5) {
+      return "you found no item"
+    } else if(Math.random() > 0.5) {
+      return "you found an item"
+    } else if(Math.random() > 0.5) {
+      return "you found a super rare item"
+    } else {
+      return "you found a potion of level up!"
+    }
+    
+  },
+  
+
+
+  
+});
+
+
+var Suit = Enemy.extend({
+  
+  init : function(data, game) {
+    data.type = 'suit';
+    this._super(data, game);
+    this.experience = 4;
+    var names = ["Josh the Snob", "Tina the Accountant", "Deloitte-man"];
     this.name = names[Math.floor(Math.random()*names.length)];
+  },
+  
+  dropItem : function() {
+    
+    if(Math.random() > 0.5) {
+      return "you found no item"
+    } else if(Math.random() > 0.5) {
+      return "you found an item"
+    } else if(Math.random() > 0.5) {
+      return "you found a super rare item"
+    } else {
+      return "you found a potion of level up!"
+    }
+    
+  },
+  
+  getHitText : function(damage) {
+    var texts = [
+      "You make fun of the corporate square and his lack of hipness. He loses <b>"+damage+" points</b> of power.",
+      "You get the corporate square to share a joint with you. He gets <b>"+damage+" points</b> less uptight.",
+      "You hug "+this.getName()+" and get sweat all over his new suit. He loses <b>"+damage+" points</b> of suit-esteem.",
+      "You read poetry to the suit and he becomes <b>"+damage+" points</b> less shallow"
+    ];
+    return texts[Math.floor(Math.random()*texts.length)];
+  },
+  
+  hitText : function(damage) {
+    var texts = [
+      this.getName()+" offers you a well-paying job. You take <b>"+damage+" points</b> of spirit-damage.",
+      this.getName()+" knocks your joint into the sewers. You lose <b>"+damage+" points</b> from your hight",
+      this.getName()+" breaks the strings on your guitar. You lose <b>"+damage+" points</b> of mellowness",
+      this.getName()+" washes you with cold water and soap. You become less annoyin and take <b>"+damage+" points</b> of damage.",
+    ];
+    return texts[Math.floor(Math.random()*texts.length)];
+  },
+  
+  defeatText : function() {
+    return "You win, the corporate square quts his job and joins the commune! You gain <b>"+this.experience+" experience</b> points.";
+  },
+  
+  winText : function() {
+    return this.getName()+" crushed your your spirit. You are left with only one resistance point. Time to find a safe zone...";
+  },
+  
+  evade : function() {
+    return "The square is too slick. He <b>evades</b> your attempt to chill him out.";
+  },
+  failHit : function() {
+    return this.getName() + " can't move in his suit. You <b>evade</b> his attack."
   }
-
-
   
 });
