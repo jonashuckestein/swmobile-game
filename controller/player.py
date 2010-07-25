@@ -25,7 +25,7 @@ class PlayerHandler(webapp.RequestHandler):
                                      "max_health": player.max_health,
                                      "strength": player.strength,
                                      "defense": player.defense,
-                                     "reach_feet": int(player.reach * 0.3048),  # convert meters to feet
+                                     "reach_feet": int(player.reach / 0.3048),  # convert meters to feet
                                      "total_distance_traveled_miles": "%.2f" % (player.total_distance_traveled_meters / 1609.344),
                                       }},
                          "player.html")
