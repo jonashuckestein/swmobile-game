@@ -5,11 +5,11 @@
       <th>Name</th>
       <th>Miles Traveled</th>
     </tr>
-    <tr>
-      {% for player in players %}
+    {% for player in players %}
+      <tr>
         <td><a href="/s/player?id={{ player.user.user_id }}">{{ player.user.nickname }}</a></td>
         <td>{{ player.total_distance_traveled_miles }} mi.</td>
-      {% endfor %}
-    </tr>
+      </tr>
+    {% endfor %}
   </table>
 {% endblock %}
