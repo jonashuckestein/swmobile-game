@@ -72,7 +72,7 @@ Ext.setup({
         console.log("updated game state", game.worldState);
       }
       var startQuest = function(target) {
-        mapPanel.map.setZoom(20);
+
         game.quest = new HippieHunt(target, game);
 
 
@@ -85,9 +85,11 @@ Ext.setup({
 
       
       // have a timer updating the gamestate as fast as possible with 1 sec delay after response comes in
+      var questPanelTextField = new Ext.form.TextField({
+        name: 'targetAddress'
+      });
       var questPanel = new Ext.Panel({
-        
-        
+                
         title: 'Quest',
         iconCls: 'info',
         cls: 'quest',
@@ -107,21 +109,22 @@ Ext.setup({
                   required: true,
                   labelAlign: 'left'
               },
-              items: [{
-                  xtype: 'textfield',
-                  name : 'name'
-              }]
+              items: [questPanelTextField]
               },
           
             {
               xtype: 'button',
               text: 'Start quest',
               handler: function(){
+                var address = questPanelTextField.getValue();
+                if(!address) {
+                  alert("Make sure to enter a valid address!");
+                  return;
+                }
                 var geocoder = new google.maps.Geocoder();
                 geocoder.geocode({
-                  address: "1400 Washington St, 94109 San Francisco"
+                  address: address
                 }, function(response){
-                
                   startQuest({
                     lat: response[0].geometry.location.lat(),
                     lon: response[0].geometry.location.lng()

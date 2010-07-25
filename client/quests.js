@@ -42,6 +42,15 @@ HippieHunt = Quest.extend({
   
   init : function(target, game) {
     
+    // establish bounds of path to target
+    this.bounds = new google.maps.LatLngBounds(
+      new google.maps.LatLng(target.lat, target.lon),
+      new google.maps.LatLng(game.you.data.lat, game.you.data.lon)
+    );    
+    
+    game.mapPanel.map.panToBounds(this.bounds);
+    
+    
     this._super(target, game);
     
     this.toKill = Math.floor(Math.random()*5)+5; // at least 5!
