@@ -312,7 +312,7 @@ HippieUprising = Quest.extend({
   },
   
   getQuestHTML : function() {
-    return '<div class="questHTML">The hippies need your help to make all the suits and squares more chill. You need to defeat '+this.toKill+' suits, hippie-style!</div>';
+    return '<div class="questHTML"><h3><b>Flower Power</b></h3><img src="http://www.dragoart.com/tuts/pics/5/2631/how-to-draw-a-hippie.jpg"/>The hippies need your help to make all the suits and squares more chill. You need to defeat '+this.toKill+' suits, hippie-style!</div>';
   },
   
 
