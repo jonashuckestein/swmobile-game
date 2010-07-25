@@ -1,3 +1,4 @@
+from controller import event
 from controller import player
 from controller import world
 from google.appengine.ext import webapp
@@ -5,7 +6,8 @@ from google.appengine.ext.webapp import util
 
 
 def Application():
-  return webapp.WSGIApplication([('/a/player', player.PlayerHandler),
+  return webapp.WSGIApplication([('/a/event', event.EventHandler),
+                                 ('/a/player', player.PlayerHandler),
                                  ('/a/world', world.WorldHandler)],
                                  debug=True)
 

@@ -11,7 +11,7 @@ from model import player as player_model
 from model import event as event_model
 
 
-class PlayerHandler(webapp.RequestHandler):
+class EventHandler(webapp.RequestHandler):
 
   def get(self):
     self.error(403)
