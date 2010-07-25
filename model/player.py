@@ -17,4 +17,4 @@ class Player(db.Model):
   defense = db.IntegerProperty(default=5)
   
   # Leaderboard attributes
-  total_distance_meters = db.FloatProperty(default=0)
+  total_distance_traveled_meters = db.FloatProperty(default=0.0)
