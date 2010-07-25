@@ -25,7 +25,6 @@ handlers:
 
 - url: /
   static_dir: client
-  login: required
 
 derived_file_type:
 - python_precompiled
