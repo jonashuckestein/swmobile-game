@@ -179,7 +179,7 @@ Ext.setup({
                                                                   
           '<div>                                                    ',
           '  <div style="width: 64px; float: left">                 ',
-          '    <img src="/avatars/{data.level}.png" width=64 height=64 />      ',
+          '    <img src="/avatars/{data.level}.jpg" width=64 height=64 />      ',
           '  </div>                                                 ',
           '  <div style="float: right; margin: 0 1em 1em 1em;">     ',
           '    <strong>{data.nickname}</strong><br />              ',
