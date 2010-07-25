@@ -1,0 +1,4 @@
+*.pyc
+tests/*.pyc
+model/*.pyc
+controller/*.pyc
