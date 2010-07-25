@@ -1,5 +1,7 @@
 """This is the player's controller."""
 
+import logging
+
 from controller.api import util
 from django.utils import simplejson 
 from google.appengine.api import users
@@ -14,6 +16,7 @@ class PlayerHandler(webapp.RequestHandler):
     util.Output(self._AsJsonDict(self._GetPlayer()), self.response)
   
   def put(self):
+    logging.debug("Putting player, request body: %s" % self.request.body)
     player = self._GetPlayer()
     
     payload = simplejson.loads(self.request.body)
@@ -31,8 +34,9 @@ class PlayerHandler(webapp.RequestHandler):
       player.strength = payload["strength"]
     if "defense" in payload:
       player.defense = payload["defense"]
-    if "total_distance_meters" in payload:
-      player.total_distance_meters = payload["total_distance_meters"]
+    if "total_distance_traveled_meters" in payload:
+      player.total_distance_traveled_meters = \
+          payload["total_distance_traveled_meters"]
 
     player.put()
     

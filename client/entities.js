@@ -102,6 +102,7 @@ var You = Entity.extend({
       success: function(response, opts) {
     	console.log("Successfully saved player data to server.");
         self.data = Ext.util.JSON.decode(response.responseText);
+        console.log("Player data ", self.data);
         
         // TODO: maybe it is nicer to update the character panel
         // already even before the server confirms the update
