@@ -37,6 +37,8 @@ class PlayerHandler(webapp.RequestHandler):
     if "total_distance_traveled_meters" in payload:
       player.total_distance_traveled_meters = \
           payload["total_distance_traveled_meters"]
+    if "reach" in payload:
+      player.reach = payload["reach"]
 
     player.put()
     
@@ -57,7 +59,8 @@ class PlayerHandler(webapp.RequestHandler):
          "experience": player.experience,
          "level": player.level,
          "strength": player.strength,
-         "defense": player.defense}
+         "defense": player.defense,
+         "reach": player.reach }
     if player.location is not None:
       d["lat"] = player.location.lat
       d["lon"] = player.location.lon

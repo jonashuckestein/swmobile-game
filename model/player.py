@@ -15,6 +15,7 @@ class Player(db.Model):
   level = db.IntegerProperty(default=1)
   strength = db.IntegerProperty(default=5)
   defense = db.IntegerProperty(default=5)
+  reach = db.FloatProperty(default=50.0)
   
   # Leaderboard attributes
   total_distance_traveled_meters = db.FloatProperty(default=0.0)

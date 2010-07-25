@@ -17,6 +17,9 @@ handlers:
   secure: never
 
 - url: /
+  script: main.py
+
+- url: /game
   static_files: client/index.html
   upload: client/index.html
   login: required

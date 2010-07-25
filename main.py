@@ -1,3 +1,4 @@
+from controller import homepage
 from controller import leaderboard
 from controller import player
 from controller.api import event
@@ -13,7 +14,8 @@ def Application():
        ('/a/player', player_api.PlayerHandler),
        ('/a/world', world.WorldHandler),
        ('/s/leaderboard', leaderboard.LeaderboardHandler),
-       ('/s/player', player.PlayerHandler)],
+       ('/s/player', player.PlayerHandler),
+       ('/', homepage.HomepageHandler)],
       debug=True)
 
 

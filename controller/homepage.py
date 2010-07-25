@@ -1,4 +1,4 @@
-"""This is the Leaderboard."""
+"""This is the Homepage."""
 
 import os
 
@@ -8,19 +8,17 @@ from google.appengine.ext.webapp import template
 from model import player as player_model
 
 
-class LeaderboardHandler(webapp.RequestHandler):
+class HomepageHandler(webapp.RequestHandler):
 
   def get(self):
     player_query = player_model.Player.all()
     player_query.order("-total_distance_traveled_meters")
     
     players = []
-    for player in player_query.fetch(10):
-      players.append({"user": { "user_id": player.user.user_id(),
-                                "nickname": player.user.nickname() },
-                      "total_distance_traveled_miles": "%.2f" % (player.total_distance_traveled_meters / 1609.344)})
+    for player in player_query.fetch(3):
+      players.append(player)
     
-    self._OutputTemplate({"players": players}, "leaderboard.html")
+    self._OutputTemplate({"players": players}, "homepage.html")
   
   def _OutputTemplate(self, dict, template_name):
     path = os.path.join(os.path.dirname(__file__),

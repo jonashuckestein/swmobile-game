@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block body %}
+<body>
+  <div id="header">
+    <a href="/game">Game</a>
+    {% if player %}
+      <a href="/s/player?id={{ player.user.user_id }}">Profile</a>
+    {% endif %}
+    <a href="/s/leaderboard">Leaders</a>
+  </div>
+
+  {% block contents %}{% endblock %}
+
+</body>
+{% endblock %}
