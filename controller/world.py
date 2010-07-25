@@ -17,11 +17,14 @@ class WorldHandler(webapp.RequestHandler):
     self._OutputWorld(self._GetWorld())
   
   def put(self):
+    logging.debug("World put request.")
     def txn(request_json):
+      logging.debug("World update transaction.")
       world = self._GetWorld()
       if self._IsRecent(request_json, world):
-        self._UpdateWorld(world)
-        world.put()
+        world_dict = self._GetWorldDict(world)
+        world_dict = self._UpdateWorldDict(world_dict)
+        self._PutWorldDict(world, world_dict)
       else:
         # Status 409 Conflict
         logging.info("Invalid game state updated, returning conflict.")
@@ -50,11 +53,13 @@ class WorldHandler(webapp.RequestHandler):
     d = {}
     for key, value in itertools.izip(w.keys, w.values):
       d[key] = value
+    logging.debug("Constructed world dictionary: %s" % d)
     return d
   
   def _PutWorldDict(self, world, world_dict):
-    world.keys.clear()
-    world.values.clear()
+    logging.debug("_PutWorldDict - Updating world to: %s" % world_dict)
+    world.keys = []
+    world.values = []
     
     for key in world_dict:
       world.keys.append(key)
@@ -72,20 +77,32 @@ class WorldHandler(webapp.RequestHandler):
     if not valid:
       logging.debug("Invalid request timestamp.  Payload: %s; World: %s" %
                     (payload, world_dict))
+    else:
+      logging.debug("Request passed world timestamp check.  Payload: %s; "
+                    "World: %s" % (payload, world_dict))
     return valid
   
-  def _UpdateWorld(self, world):
+  def _UpdateWorldDict(self, world_dict):
     """In-place updates the given world with the request's body."""
+    logging.debug("Updating world.")
     payload = self._GetRequestJson()
     
-    world_dict = self._GetWorldDict(world)
     for key in payload:
-      if payload[key] is None:
+      value = payload[key]
+      logging.debug("Updating attribute '%s' to '%s'" % (key, value))
+      if value is None:
+        logging.debug("Deleting attribute '%s'" % key)
         del world_dict[key]
       else:
-        world_dict[key] = simplejson.dumps(payload[key])
+        dumped = simplejson.dumps(value)
+        logging.debug("Writing value '%s'" % dumped)
+        world_dict[key] = dumped
 
-    world_dict["timestamp"] = str(int(time.time() * 1000))
+    timestamp = str(int(time.time() * 1000))
+    logging.debug("Updating world timestamp to %s" % timestamp)
+    world_dict["timestamp"] = timestamp
+    
+    return world_dict
   
   def _OutputWorld(self, world):
     assert world is not None
