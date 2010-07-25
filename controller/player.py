@@ -31,6 +31,8 @@ class PlayerHandler(webapp.RequestHandler):
       player.strength = payload["strength"]
     if "defense" in payload:
       player.defense = payload["defense"]
+    if "total_distance_meters" in payload:
+      player.total_distance_meters = payload["total_distance_meters"]
 
     player.put()
     
@@ -42,19 +44,14 @@ class PlayerHandler(webapp.RequestHandler):
     return player_model.Player.get_or_insert(user.user_id(), user=user)
     
   def _AsJsonDict(self, player):
-    d = {"email": player.user.email(), "id": int(player.user.user_id())}
-    if player.location is not None:
-      d["lat"] = player.location.lat
-      d["lon"] = player.location.lon
-    if player.max_health is not None and player.current_health is not None:
-      d["max_health"] = player.max_health
-      d["current_health"] = player.current_health
-    if player.experience is not None:
-      d["experience"] = player.experience
-    if player.level is not None:
-      d["level"] = player.level
-    if player.strength is not None:
-      d["strength"] = player.strength
-    if player.defense is not None:
-      d["defense"] = player.defense
-    return d
+    return {"email": player.user.email(),
+            "id": int(player.user.user_id()),
+            "total_distance_meters": player.total_distance_meters,
+            "lat": player.location.lat,
+            "lon": player.location.lon,
+            "max_health": player.max_health,
+            "current_health": player.current_health,
+            "experience": player.experience,
+            "level": player.level,
+            "strength": player.strength,
+            "defense": player.defense}
