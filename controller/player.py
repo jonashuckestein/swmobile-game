@@ -55,6 +55,6 @@ class PlayerHandler(webapp.RequestHandler):
       d["level"] = player.level
     if player.strength is not None:
       d["strength"] = player.strength
-    if player.dexterity is not None:
+    if player.defense is not None:
       d["defense"] = player.defense
     return d
