@@ -1,24 +1,21 @@
 {% extends "game_screen.html" %}
 {% block contents %}
-<body>
   <div>
     <div style="width: 64px; float: left">
-      <img src="/a/player/{{ player.user.user_id }}/icon" width=64 height=64 />
+      <img src="/avatars/{{ player.level }}.png" width=64 height=64 />
     </div>
-    <div style="float: right">
+    <div style="float: right; margin: 0 1em 1em 1em;">
       <strong>{{ player.user.nickname }}</strong><br />
       Level: {{ player.level }}<br />
       Experience: {{ player.experience }}
     </div>
   </div>
 
-  <div style="clear: both">
+  <div style="clear: both; padding: 1em; border-top: 1px black solid;">
     Health: {{ player.current_health }} / {{ player.max_health }}<br />
     Strength: {{ player.strength }}<br />
     Defense: {{ player.defense }}<br />
     Reach: {{ player.reach_feet }}'<br />
     Miles traveled: {{ player.total_distance_traveled_miles }}<br/>
   </div>
-  
-</body>
 {% endblock %}
