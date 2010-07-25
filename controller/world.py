@@ -5,6 +5,7 @@ import logging
 import time
 
 from django.utils import simplejson 
+from model import player as player_model
 from model import world as world_model
 from google.appengine.api import users
 from google.appengine.ext import db
@@ -29,9 +30,10 @@ class WorldHandler(webapp.RequestHandler):
         # Status 409 Conflict
         logging.info("Invalid game state updated, returning conflict.")
         self.response.set_status(409)
-      self._OutputWorld(world)
+      return world
 
-    db.run_in_transaction(txn, self._GetRequestJson())
+    world = db.run_in_transaction(txn, self._GetRequestJson())
+    self._OutputWorld(world)
     
   def _GetRequestJson(self):
     return simplejson.loads(self.request.body)
@@ -115,6 +117,17 @@ class WorldHandler(webapp.RequestHandler):
     elements = []
     for key, value in itertools.izip(world.keys, world.values):
       elements.append("\"%s\": %s" % (key, value))
+    
+    players = player_model.Player.all().fetch(1000)
+    p_list = []
+    for player in players:
+      p_d = {"email": player.user.email(), "nickname": player.user.nickname()}
+      if player.location is not None:
+        p_d["lat"] = player.location.lat
+        p_d["lon"] = player.location.lon
+      p_list.append(p_d)
+    elements.append("\"%s\": %s" % ("players", simplejson.dumps(p_list)))
+    
     self.response.out.write(",".join(elements))
     
     self.response.out.write("}")
