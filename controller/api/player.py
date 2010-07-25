@@ -51,7 +51,7 @@ class PlayerHandler(webapp.RequestHandler):
     
     # Update defaults.
     if player.reach is None:
-      player.reach = 50
+      player.reach = 50.0
 
     return player
     
