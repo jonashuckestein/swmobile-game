@@ -56,3 +56,22 @@ class WorldHandlerTest(base.HandlerTestCase):
     parsed = simplejson.loads(str(response.body))
     self.assertTrue("a" in parsed)
     self.assertEquals(2, parsed["a"])
+
+  def testAttributeRemove(self):
+    ts_response = self._app.get("/a/world", status=200)
+    d = simplejson.loads(str(ts_response.body))
+    timestamp = d["timestamp"]
+    
+    content = """{ "timestamp": %d, "a": 1 }""" % timestamp
+    response = self._app.put("/a/world", params=content, status=200)
+
+    # Get the new timestamp.
+    ts_response = self._app.get("/a/world", status=200)
+    d = simplejson.loads(str(ts_response.body))
+    timestamp = d["timestamp"]
+    
+    content = """{ "timestamp": %d, "a": null }""" % timestamp
+    response = self._app.put("/a/world", params=content, status=200)
+    
+    parsed = simplejson.loads(str(response.body))
+    self.assertFalse("a" in parsed)
