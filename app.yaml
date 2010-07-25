@@ -9,7 +9,12 @@ handlers:
   login: required
   secure: never
 - url: /
+  static_files: client/index.html
+  upload: client/index.html
+  login: required
+- url: /
   static_dir: client
+  login: required
 
 derived_file_type:
 - python_precompiled
