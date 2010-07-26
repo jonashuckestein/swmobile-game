@@ -16,6 +16,11 @@ class PlayerHandler(webapp.RequestHandler):
       self.error(403)
     
     player = player_model.Player.get_by_key_name(id)
+    
+    distance_traveled_miles = 0
+    if player.total_distance_traveled_meters is not None:
+      distance_traveled_miles = player.total_distance_traveled_meters / 1609.344
+    
     self._OutputTemplate({"player": {"user": { "nickname": player.user.nickname(),
                                                "email": player.user.email(),
                                                "user_id": player.user.user_id() },
@@ -26,7 +31,7 @@ class PlayerHandler(webapp.RequestHandler):
                                      "strength": player.strength,
                                      "defense": player.defense,
                                      "reach_feet": int(player.reach / 0.3048),  # convert meters to feet
-                                     "total_distance_traveled_miles": "%.2f" % (player.total_distance_traveled_meters / 1609.344),
+                                     "total_distance_traveled_miles": "%.2f" % distance_traveled_miles,
                                       }},
                          "player.html")
   
